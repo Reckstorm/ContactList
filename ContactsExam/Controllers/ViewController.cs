@@ -184,7 +184,15 @@ namespace ContactsExam.Controllers
                 else if (key.KeyChar == '3')
                 {
                     Console.Clear();
-                    PrintResult(_contacts.Categories.RemoveCategory(CategoryPick()));
+                    Category temp = CategoryPick();
+                    if (_contacts.Any(x => x.Category.Equals(temp)))
+                    {
+                        Console.WriteLine(_locale.ErrorText);
+                    }
+                    else
+                    {
+                        PrintResult(_contacts.Categories.RemoveCategory(temp));
+                    }
                     Console.ReadKey(true);
                 }
                 else if (key.KeyChar == 27)
