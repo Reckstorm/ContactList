@@ -26,6 +26,7 @@ namespace ContactsExam.Models.Locales
         public string AddCategory { get; set; }
         public string ViewCategories { get; set; }
         public string[] AddContactMenu { get; set; }
+        public string[] EditContactMenu { get; set; }
         private Locale() { }
         public Locale(
             string path, 
@@ -44,7 +45,8 @@ namespace ContactsExam.Models.Locales
             string enterChar,
             string addCategory,
             string viewCategories,
-            string[] addContactMenu)
+            string[] addContactMenu,
+            string[] editContactMenu)
         {
             Path = path;
             PathCat = pathCat;
@@ -63,6 +65,7 @@ namespace ContactsExam.Models.Locales
             AddCategory = addCategory;
             ViewCategories = viewCategories;
             AddContactMenu = addContactMenu;
+            EditContactMenu = editContactMenu;
         }
     }
 }

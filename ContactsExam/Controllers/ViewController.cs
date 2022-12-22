@@ -29,7 +29,7 @@ namespace ContactsExam.Controllers
         public void RunClient()
         {
             Contact temp;
-            string[] str = { string.Empty, string.Empty, string.Empty, string.Empty };
+            string[] str = { string.Empty, string.Empty, string.Empty, string.Empty, string.Empty };
             ConsoleKeyInfo key;
             do
             {
@@ -59,15 +59,90 @@ namespace ContactsExam.Controllers
                     Console.Clear();
                     Console.WriteLine(_locale.AddContactMenu[0]);
                     str[0] = Console.ReadLine();
+                    int index = _contacts.FindIndexByName(str[0]);
+                    do
+                    {
+                        Console.Clear();
+                        if (index == -1)
+                        {
+                            Console.WriteLine(_locale.ErrorText);
+                            Console.ReadKey(true);
+                            break;
+                        }
+                        else
+                        {
+                            for (int i = 0; i < _locale.EditContactMenu.Length; i++)
+                            {
+                                Console.WriteLine($"{_locale.EditContactMenu[i]}");
+                            }
+                            key = Console.ReadKey(true);
+                            if (key.KeyChar == '1')
+                            {
+                                Console.Clear();
+                                Console.WriteLine(_contacts[index] + "\n");
+                                Console.WriteLine(_locale.AddContactMenu[0]);
+                                str[0] = Console.ReadLine();
+                                _contacts[index].FirstName = str[0];
+                                PrintResult(true);
+                            }
+                            else if (key.KeyChar == '2')
+                            {
+                                Console.Clear();
+                                Console.WriteLine(_contacts[index] + "\n");
+                                Console.WriteLine(_locale.AddContactMenu[1]);
+                                str[0] = Console.ReadLine();
+                                _contacts[index].LastName = str[0];
+                                PrintResult(true);
+                            }
+                            else if (key.KeyChar == '3')
+                            {
+                                Console.Clear();
+                                Console.WriteLine(_contacts[index] + "\n");
+                                Console.WriteLine(_locale.AddContactMenu[2]);
+                                str[0] = Console.ReadLine();
+                                _contacts[index].TelNo = str[0];
+                                PrintResult(true);
+                            }
+                            else if (key.KeyChar == '4')
+                            {
+                                Console.Clear();
+                                Console.WriteLine(_contacts[index] + "\n");
+                                Console.WriteLine(_locale.AddContactMenu[3]);
+                                str[0] = Console.ReadLine();
+                                _contacts[index].Email = str[0];
+                                PrintResult(true);
+                            }
+                            else if (key.KeyChar == '5')
+                            {
+                                _contacts[index].Category = CategoryPick();
+                                PrintResult(true);
+                            }
+                            else if (key.KeyChar == 27)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine(_locale.ErrorText);
+                            }
+                        }
+                        Console.ReadKey(true);
+                    } while (true);
+                }
+                else if (key.KeyChar == '4')
+                {
+                    Console.Clear();
+                    Console.WriteLine(_locale.AddContactMenu[0]);
+                    str[0] = Console.ReadLine();
                     PrintResult(_contacts.RemoveContactByName(str[0]));
                     Console.ReadKey(true);
                 }
-                else if (key.KeyChar == '4')
+                else if (key.KeyChar == '5')
                 {
                     PrintContacts(FilterControl());
                     Console.ReadKey(true);
                 }
-                else if (key.KeyChar == '5')
+                else if (key.KeyChar == '6')
                 {
                     CategoryControl();
                     Console.ReadKey(true);
